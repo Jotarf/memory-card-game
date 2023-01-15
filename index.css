@@ -1,0 +1,89 @@
+body {
+  background-color: #0e141b;
+}
+
+.header {
+  width: 100vw;
+  padding: 1rem 1rem;
+  background-color: #182635;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  grid-auto-rows: minmax(25vh, auto);
+  max-width: 70vw;
+  padding-top: 1rem;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  border: 5px solid transparent;
+  border-radius: 15px;
+  /*perspective: 1000px;*/
+}
+
+.card:has(.card-back > img):hover {
+  border-color: red;
+  cursor: pointer;
+}
+
+.card:has(.card-active > .card-back > img):hover {
+  border-color: transparent !important;
+}
+
+.card:not(:has(.card-back > img)) {
+  border-color: #182635;
+  background-color: #111a23;
+}
+
+.card-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.back-card-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+/*.card:hover .card-inner {*/
+/*transform: rotateY(180deg);*/
+/*transition: transform 0.8s;*/
+/*}*/
+
+.card-active {
+  transform: rotateY(180deg);
+  transition: transform 0.8s;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+}
