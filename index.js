@@ -4,7 +4,8 @@ const cardsToRender = []
 const flippedCards = []
 
 const addCard = (imageFile) => {
-  const card = `<div class="card">
+  const card = `
+      <div class="card">
         <div class="card-inner">
           <div class="card-front">
             <image class="back-card-image" src="assets/backcardimage.png"></image>
@@ -13,7 +14,8 @@ const addCard = (imageFile) => {
             <image class="card-image" src="assets/${imageFile}"></image>
           </div>
         </div>
-      </div>`
+      </div>
+  `
   return card
 }
 
@@ -30,21 +32,21 @@ cardsToRender.forEach((c) => {
 
 const cardsRendered = document.querySelectorAll('.card')
 
-cardsRendered.forEach((c) => {
+cardsRendered.forEach((c, index) => {
   c.addEventListener('click', () => {
     const card = c.querySelector('.card-inner')
-    flipCard(card)
+    flipCard(card, index)
   })
 })
 
-const flipCard = (card) => {
+const flipCard = (card, cardId) => {
   if (flippedCards.length === 2) return
 
   card.classList.add('card-active')
 
   const imageName = card.querySelector('.card-back>.card-image').attributes.src.value
 
-  flippedCards.push({ card: card, imageName: imageName })
+  if(!flippedCards.some(c => c.cardId === cardId)) flippedCards.push({ card: card, imageName: imageName, cardId: cardId})
 
   if (flippedCards.length === 2){
     const areCardsSame = compareFlippedCards(flippedCards)
@@ -58,7 +60,8 @@ const flipCard = (card) => {
 }
 
 const compareFlippedCards = (cards) => {
-  return [...new Set(cards.map((c) => c.imageName))].length === 1
+  const uniqueImageName = [...new Set(cards.map((c) => c.imageName))]
+  return uniqueImageName.length === 1
 }
 
 const returnCardsToOriginalState = () => {
