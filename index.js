@@ -1,6 +1,7 @@
 const characters = ['ace.jpg', 'chopper.jpeg', 'eustass.webp', 'kawamatsu.jpg', 'oden.webp', 'luffy.jpg']
-
 const grid = document.getElementById('cards-grid')
+const cardsToRender = []
+const flippedCards = []
 
 const addCard = (imageFile) => {
   const card = `<div class="card">
@@ -16,8 +17,6 @@ const addCard = (imageFile) => {
   return card
 }
 
-const cardsToRender = []
-
 characters.forEach((c) => {
   cardsToRender.push(addCard(c), addCard(c))
 })
@@ -30,47 +29,46 @@ cardsToRender.forEach((c) => {
 })
 
 const cardsRendered = document.querySelectorAll('.card')
+
 cardsRendered.forEach((c) => {
   c.addEventListener('click', () => {
-    const card = c.querySelectorAll('.card-inner')[0]
+    const card = c.querySelector('.card-inner')
     flipCard(card)
   })
 })
 
-let flippedCards = []
 const flipCard = (card) => {
-  if (flippedCards.length >= 2) return
+  if (flippedCards.length === 2) return
+
   card.classList.add('card-active')
-  const imageName = card.getElementsByClassName('card-image')[0].attributes.src.value
+
+  const imageName = card.querySelector('.card-back>.card-image').attributes.src.value
+
   flippedCards.push({ card: card, imageName: imageName })
-  const areCardsSame = compareFlippedCards(flippedCards)
-  if (flippedCards.length === 2)
+
+  if (flippedCards.length === 2){
+    const areCardsSame = compareFlippedCards(flippedCards)
+    
     setTimeout(() => {
       if (!areCardsSame) returnCardsToOriginalState()
-      else deleteSameCards(imageName)
+      else deleteSameCards()
+      flippedCards.length = 0
     }, 1000)
+  }
 }
 
 const compareFlippedCards = (cards) => {
-  return [...new Set(cards.map((c) => c.imageName))].length === 1 && cards.length === 2
+  return [...new Set(cards.map((c) => c.imageName))].length === 1
 }
 
 const returnCardsToOriginalState = () => {
-  flippedCards.forEach((f) => {
-    f.card.classList.remove('card-active')
-    f.card.isCardFlipped = false
-  })
-  flippedCards.length = 0
+  flippedCards.forEach((f) => f.card.classList.remove('card-active'))
+  
 }
 
-const deleteSameCards = (imageName) => {
+const deleteSameCards = () => {
   flippedCards.forEach((f) => {
-    const innerCards = f.card.querySelectorAll('.card-back')
-    innerCards.forEach((c) => {
-      const imageTags = c.getElementsByTagName('img')
-      const imageTag = imageTags.length ? imageTags[0] : null
-      if (imageTag?.attributes?.src?.value === imageName) imageTag.remove()
-    })
+    const image = f.card.querySelector('.card-back>.card-image')
+    image.remove()
   })
-  flippedCards.length = 0
 }
