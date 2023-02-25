@@ -6,14 +6,14 @@ const flippedCards = []
 const addCard = (imageFile) => {
   const card = `
       <div class="card">
-        <div class="card-inner">
+    
           <div class="card-front">
             <image class="back-card-image" src="assets/backcardimage.png"></image>
           </div>
           <div class="card-back">
             <image class="card-image" src="assets/${imageFile}"></image>
           </div>
-        </div>
+        
       </div>
   `
   return card
@@ -34,8 +34,8 @@ const cardsRendered = document.querySelectorAll('.card')
 
 cardsRendered.forEach((c, index) => {
   c.addEventListener('click', () => {
-    const card = c.querySelector('.card-inner')
-    flipCard(card, index)
+    // const card = c.querySelector('.card-inner')
+    flipCard(c, index)
   })
 })
 
