@@ -34,7 +34,6 @@ const cardsRendered = document.querySelectorAll('.card')
 
 cardsRendered.forEach((c, index) => {
   c.addEventListener('click', () => {
-    // const card = c.querySelector('.card-inner')
     flipCard(c, index)
   })
 })
@@ -52,8 +51,8 @@ const flipCard = (card, cardId) => {
     const areCardsSame = compareFlippedCards(flippedCards)
     
     setTimeout(() => {
-      if (!areCardsSame) returnCardsToOriginalState()
-      else deleteSameCards()
+      returnCardsToOriginalState()
+      if (areCardsSame) deleteSameCards()
       flippedCards.length = 0
     }, 1000)
   }
@@ -66,12 +65,12 @@ const compareFlippedCards = (cards) => {
 
 const returnCardsToOriginalState = () => {
   flippedCards.forEach((f) => f.card.classList.remove('card-active'))
-  
 }
 
 const deleteSameCards = () => {
   flippedCards.forEach((f) => {
-    const image = f.card.querySelector('.card-back>.card-image')
-    image.remove()
+    f.card.innerHTML= ''
+    const clonedCard = f.card.cloneNode(true)
+    f.card.parentNode.replaceChild(clonedCard, f.card)
   })
 }
