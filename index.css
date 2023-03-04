@@ -11,7 +11,7 @@ body {
 .layout {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 5px;
+  grid-gap: 10px;
   grid-auto-rows: minmax(22vh, auto);
   max-width: 96vw;
   padding-top: 1rem;
@@ -20,20 +20,20 @@ body {
   margin-right: auto;
 }
 
-@media screen and (min-width: 1200px){
+@media screen and ( width >= 1200px){
   .layout{
     max-width: 60vw;
   }
 }
 
-@media screen and (min-width: 900px) and (max-width: 1199.99px){
+@media screen and (900px <= width < 1200px){
   .layout{
     grid-gap: 10px;
     max-width: 75vw;
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 899.99px){
+@media screen and (600px <= width < 900px){
   .layout{
     grid-gap: 5px;
     max-width: 88vw;
@@ -48,9 +48,6 @@ body {
 }
 
 .card {
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*align-items: center;*/
   border: 5px solid transparent;
   border-radius: 15px;
   width: 100%;
@@ -58,11 +55,41 @@ body {
   text-align: center;
   transition: transform 0.7s;
   transform-style: preserve-3d;
-  /*perspective: 1000px;*/
+}
+ 
+.card-parent{
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.card-parent:has(.card-back > img):not(:has(.card-active)):hover::before {
+  content: '';
+  position: absolute;
+  background: conic-gradient(
+    rgb(129, 255, 251),
+    rgb(119, 0, 255),
+    rgb(255, 169, 252),
+    #fff,
+    rgb(129, 255, 251),
+    rgb(119, 0, 255),
+    rgb(255, 169, 252),
+    #fff
+  );
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  top: -50%;
+  animation: gradient-animation 1.5s infinite linear;
+}
+
+@keyframes gradient-animation{
+  100%{
+    transform: rotate(-360deg);
+  }
 }
 
 .card:has(.card-back > img):not(.card-active):hover {
-  border-color: red;
   cursor: pointer;
 }
 
@@ -100,6 +127,10 @@ body {
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+
+.card-parent.not-before::before {
+  content: none !important;
 }
 
 .card-back {

@@ -5,16 +5,16 @@ const flippedCards = []
 
 const addCard = (imageFile) => {
   const card = `
+    <div class="card-parent">
       <div class="card">
-    
-          <div class="card-front">
-            <image class="back-card-image" src="assets/backcardimage.png"></image>
-          </div>
-          <div class="card-back">
-            <image class="card-image" src="assets/${imageFile}"></image>
-          </div>
-        
+        <div class="card-front">
+          <image class="back-card-image" src="assets/backcardimage.png"></image>
+        </div>
+        <div class="card-back">
+          <image class="card-image" src="assets/${imageFile}"></image>
+        </div>
       </div>
+    </div>
   `
   return card
 }
@@ -30,7 +30,7 @@ cardsToRender.forEach((c) => {
   grid.innerHTML += c
 })
 
-const cardsRendered = document.querySelectorAll('.card')
+const cardsRendered = document.querySelectorAll('.card-parent')
 
 cardsRendered.forEach((c, index) => {
   c.addEventListener('click', () => {
@@ -41,7 +41,10 @@ cardsRendered.forEach((c, index) => {
 const flipCard = (card, cardId) => {
   if (flippedCards.length === 2) return
 
-  card.classList.add('card-active')
+  // card.classList.add('card-active')
+
+  const mycard = card.querySelector('.card')
+  mycard.classList.add('card-active')
 
   const imageName = card.querySelector('.card-back>.card-image').attributes.src.value
 
@@ -64,12 +67,20 @@ const compareFlippedCards = (cards) => {
 }
 
 const returnCardsToOriginalState = () => {
-  flippedCards.forEach((f) => f.card.classList.remove('card-active'))
+  flippedCards.forEach((f) => {
+    f.card.classList.add('not-before')
+    // f.card.classList.remove('card-active')
+    f.card.querySelector('.card').classList.remove('card-active')
+    setTimeout(() => {
+      f.card.classList.remove('not-before')
+    }, 400)
+  })
 }
 
 const deleteSameCards = () => {
   flippedCards.forEach((f) => {
-    f.card.innerHTML= ''
+    const cardChild = f.card.querySelector('.card')
+    cardChild.innerHTML= ''
     const clonedCard = f.card.cloneNode(true)
     f.card.parentNode.replaceChild(clonedCard, f.card)
   })
