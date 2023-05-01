@@ -2,6 +2,7 @@ const characters = ['ace.jpg', 'chopper.jpeg', 'eustass.webp', 'kawamatsu.jpg', 
 const grid = document.getElementById('cards-grid')
 const cardsToRender = []
 const flippedCards = []
+let matchedCouples = 0
 
 const addCard = (imageFile) => {
   const card = `
@@ -41,8 +42,6 @@ cardsRendered.forEach((c, index) => {
 const flipCard = (card, cardId) => {
   if (flippedCards.length === 2) return
 
-  // card.classList.add('card-active')
-
   const mycard = card.querySelector('.card')
   mycard.classList.add('card-active')
 
@@ -55,7 +54,11 @@ const flipCard = (card, cardId) => {
     
     setTimeout(() => {
       returnCardsToOriginalState()
-      if (areCardsSame) deleteSameCards()
+      if (areCardsSame) {
+        deleteSameCards()
+        matchedCouples++
+        isGameFinished()
+      }
       flippedCards.length = 0
     }, 1000)
   }
@@ -85,3 +88,14 @@ const deleteSameCards = () => {
     f.card.parentNode.replaceChild(clonedCard, f.card)
   })
 }
+
+const isGameFinished = () => {
+  
+  if (matchedCouples !== characters.length) return
+  modal.showModal()
+}
+
+const modal = document.querySelector('.game-over-modal')
+modal.addEventListener('cancel', (event) => {
+  event.preventDefault();
+});

@@ -18,6 +18,7 @@ body {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  user-select: none;
 }
 
 @media screen and ( width >= 1200px){
@@ -135,4 +136,147 @@ body {
 
 .card-back {
   transform: rotateY(180deg);
+}
+
+.game-over-modal {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 6px;
+}
+
+.game-over-modal::before {
+  content: '';
+  position: absolute;
+  background: conic-gradient(
+    rgb(129, 255, 251),
+    rgb(119, 0, 255),
+    rgb(255, 169, 252),
+    rgb(255, 255 ,255),
+    rgb(129, 255, 251),
+    rgb(119, 0, 255),
+    rgb(255, 169, 252),
+    rgb(255, 255 ,255)
+  );
+  width: 230%;
+  height: 230%;
+  left: -65%;
+  top: -65%;
+  animation: gradient-animation 1.5s infinite linear;
+  z-index: -1;
+}
+
+.game-over-modal::backdrop {
+  background: #000;
+  opacity: 0.7;
+}
+
+.game-over-modal:focus-visible {
+  outline: none
+}
+
+.modal-content {
+  padding: 30px 100px 30px 100px;
+  background: #0E141B;
+  border: 3px solid transparent;
+  border-radius: 7px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, Roboto, sans-serif;
+  user-select: none;
+}
+
+.modal-title {
+  font-size: 30px;
+  background: linear-gradient(
+    90deg,
+    rgb(129, 255, 251),
+    rgb(255, 169, 252),
+    rgb(255, 255 ,255),
+    rgb(129, 255, 251),
+    rgb(255, 169, 252),
+    rgb(255, 255 ,255)
+  );
+  background-size: 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animate 10s linear infinite;
+}
+
+@keyframes animate{
+  0%{
+    background-position: 0%;
+  }
+  100%{
+    background-position: 400%;
+  }
+}
+
+.modal-play-again {
+  font-size: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.letter {
+  font-size: 20px;
+}
+
+.fancy-text {
+  font-size: 10px;
+}
+
+.fancy-text > .letter {
+  display: inline-block;
+  transition: transform 350ms ease;
+}
+
+.fancy-text:hover > .letter {
+  transition-duration: 800ms;
+}
+
+.fancy-text:hover > .letter:nth-child(1) {
+  transform: translate(-10%, 10%) rotate(-6deg);
+}
+
+.fancy-text:hover > .letter:nth-child(2) {
+  transform: translate(20%, -15%) rotate(-8deg);
+}
+
+.fancy-text:hover > .letter:nth-child(3) {
+  transform: translate(-5%, 15%) rotate(5deg);
+}
+
+.fancy-text:hover > .letter:nth-child(4) {
+  transform: translate(0%, -15%) rotate(-8deg);
+}
+
+.fancy-text:hover > .letter:nth-child(5) {
+  transform: translate(0%, 20%) rotate(-3deg);
+}
+
+.fancy-text:hover > .letter:nth-child(6) {
+  transform: translate(0%, -15%) rotate(-6deg);
+}
+
+.fancy-text:hover > .letter:nth-child(7) {
+  transform: translate(0%, 15%) rotate(-5deg);
+}
+
+.fancy-text:hover > .letter:nth-child(8) {
+  transform: translate(0%, -15%) rotate(10deg);
+}
+
+.fancy-text:hover > .letter:nth-child(9) {
+  transform: translate(0%, 15%) rotate(-6deg);
+}
+
+.margin-right {
+  margin-right: 10px;
 }
