@@ -81,7 +81,6 @@ const compareFlippedCards = (cards) => {
 const returnCardsToOriginalState = () => {
   flippedCards.forEach((f) => {
     f.card.classList.add('not-before')
-    // f.card.classList.remove('card-active')
     f.card.querySelector('.card').classList.remove('card-active')
     setTimeout(() => {
       f.card.classList.remove('not-before')
