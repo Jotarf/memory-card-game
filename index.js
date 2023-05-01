@@ -1,7 +1,7 @@
 const characters = ['ace.jpg', 'chopper.jpeg', 'eustass.webp', 'kawamatsu.jpg', 'oden.webp', 'luffy.jpg']
 const grid = document.getElementById('cards-grid')
-const cardsToRender = []
-const flippedCards = []
+const restartGameTrigger = document.querySelector('.fancy-text')
+let flippedCards = []
 let matchedCouples = 0
 
 const addCard = (imageFile) => {
@@ -20,24 +20,33 @@ const addCard = (imageFile) => {
   return card
 }
 
-characters.forEach((c) => {
-  cardsToRender.push(addCard(c), addCard(c))
-})
+const main = () => {
 
-cardsToRender.sort(() => 0.5 - Math.random())
+  const cardsToRender = []
+  flippedCards = []
+  matchedCouples = 0
 
-grid.innerHTML = ''
-cardsToRender.forEach((c) => {
-  grid.innerHTML += c
-})
-
-const cardsRendered = document.querySelectorAll('.card-parent')
-
-cardsRendered.forEach((c, index) => {
-  c.addEventListener('click', () => {
-    flipCard(c, index)
+  characters.forEach((c) => {
+    cardsToRender.push(addCard(c), addCard(c))
   })
-})
+  
+  cardsToRender.sort(() => 0.5 - Math.random())
+  
+  grid.innerHTML = ''
+  cardsToRender.forEach((c) => {
+    grid.innerHTML += c
+  })
+
+  const cardsRendered = document.querySelectorAll('.card-parent')
+
+  cardsRendered.forEach((c, index) => {
+    c.addEventListener('click', () => {
+      flipCard(c, index)
+    })
+  })
+}
+
+main()
 
 const flipCard = (card, cardId) => {
   if (flippedCards.length === 2) return
@@ -90,7 +99,6 @@ const deleteSameCards = () => {
 }
 
 const isGameFinished = () => {
-  
   if (matchedCouples !== characters.length) return
   modal.showModal()
 }
@@ -99,3 +107,8 @@ const modal = document.querySelector('.game-over-modal')
 modal.addEventListener('cancel', (event) => {
   event.preventDefault();
 });
+
+restartGameTrigger.addEventListener('click', () =>{
+  modal.close()
+  main()
+})
