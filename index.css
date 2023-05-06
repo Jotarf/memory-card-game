@@ -32,7 +32,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
-  grid-auto-rows: minmax(22vh, auto);
+  grid-auto-rows: minmax(21vh, auto);
   max-width: 96vw;
   padding-top: 1rem;
   justify-content: center;
