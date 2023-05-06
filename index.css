@@ -3,7 +3,6 @@ body {
 }
 
 .header {
-  /* width: 100vw; */
   padding: .8rem .8rem;
   background-color: #182635;
   color: white;
@@ -20,6 +19,10 @@ body {
 
 .counter {
   padding-right: 3rem; 
+}
+
+.timer {
+  padding-right: 3rem;
 }
 
 .layout {

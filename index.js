@@ -3,6 +3,17 @@ const grid = document.getElementById('cards-grid')
 const restartGameTrigger = document.querySelector('.fancy-text')
 let flippedCards = []
 let matchedCouples = 0
+let seconds = 0
+let minutes = 0
+const timer = document.querySelector('.timer')
+const timerInterval = setInterval(() => {
+  if(seconds <= 60) seconds++
+  else {
+    minutes++
+    seconds = 0
+  }
+  timer.innerHTML = `${minutes}:${seconds<10? '0'+seconds: seconds}`
+}, 1000)
 
 const addCard = (imageFile) => {
   const card = `
@@ -99,13 +110,14 @@ const deleteSameCards = () => {
 
 const isGameFinished = () => {
   if (matchedCouples !== characters.length) return
+  clearInterval(timerInterval)
   modal.showModal()
 }
 
 const updateCounter = () => {
   const counter = document.querySelector('.counter')
   matchedCouples++
-  counter.innerHTML = `${matchedCouples}/${characters.length}`
+  counter.innerHTML = `${matchedCouples}/${characters.length} matches`
 }
 
 const modal = document.querySelector('.game-over-modal')
