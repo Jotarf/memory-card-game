@@ -3,9 +3,23 @@ body {
 }
 
 .header {
-  width: 100vw;
-  padding: 1rem 1rem;
+  /* width: 100vw; */
+  padding: .8rem .8rem;
   background-color: #182635;
+  color: white;
+  font-family: system-ui, -apple-system, Roboto, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-name {
+  padding-left: 3rem; 
+}
+
+.counter {
+  padding-right: 3rem; 
 }
 
 .layout {

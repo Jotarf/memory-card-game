@@ -65,7 +65,7 @@ const flipCard = (card, cardId) => {
       returnCardsToOriginalState()
       if (areCardsSame) {
         deleteSameCards()
-        matchedCouples++
+        updateCounter()
         isGameFinished()
       }
       flippedCards.length = 0
@@ -100,6 +100,12 @@ const deleteSameCards = () => {
 const isGameFinished = () => {
   if (matchedCouples !== characters.length) return
   modal.showModal()
+}
+
+const updateCounter = () => {
+  const counter = document.querySelector('.counter')
+  matchedCouples++
+  counter.innerHTML = `${matchedCouples}/${characters.length}`
 }
 
 const modal = document.querySelector('.game-over-modal')
