@@ -1,19 +1,13 @@
 const characters = ['ace.jpg', 'chopper.jpeg', 'eustass.webp', 'kawamatsu.jpg', 'oden.webp', 'luffy.jpg']
 const grid = document.getElementById('cards-grid')
 const restartGameTrigger = document.querySelector('.fancy-text')
+const counter = document.querySelector('.counter')
 let flippedCards = []
 let matchedCouples = 0
 let seconds = 0
 let minutes = 0
 const timer = document.querySelector('.timer')
-const timerInterval = setInterval(() => {
-  if(seconds <= 60) seconds++
-  else {
-    minutes++
-    seconds = 0
-  }
-  timer.innerHTML = `${minutes}:${seconds<10? '0'+seconds: seconds}`
-}, 1000)
+let timerInterval
 
 const addCard = (imageFile) => {
   const card = `
@@ -31,12 +25,28 @@ const addCard = (imageFile) => {
   return card
 }
 
+const resetValues = () => {
+  seconds = 0
+  minutes = 0
+  flippedCards = []
+  matchedCouples = 0
+  timer.innerHTML = '0:00'
+  counter.innerHTML = '0/0 matches'
+  timerInterval = setInterval(() => {
+    if(seconds <= 60) seconds++
+    else {
+      minutes++
+      seconds = 0
+    }
+    timer.innerHTML = `${minutes}:${seconds<10? '0'+seconds: seconds}`
+  }, 1000)
+}
+
 const main = () => {
 
   const cardsToRender = []
-  flippedCards = []
-  matchedCouples = 0
-
+  resetValues()
+ 
   characters.forEach((c) => {
     cardsToRender.push(addCard(c), addCard(c))
   })
@@ -115,7 +125,6 @@ const isGameFinished = () => {
 }
 
 const updateCounter = () => {
-  const counter = document.querySelector('.counter')
   matchedCouples++
   counter.innerHTML = `${matchedCouples}/${characters.length} matches`
 }
