@@ -14,15 +14,18 @@ body {
 }
 
 .app-name {
-  padding-left: 3rem; 
+  padding-left: 0;
+  display: none;
 }
 
-.counter {
-  padding-right: 3rem; 
+.counter, .timer {
+  padding-right: 0; 
 }
 
-.timer {
-  padding-right: 3rem;
+.stats {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .layout {
@@ -48,7 +51,7 @@ body {
   .layout{
     grid-gap: 10px;
     max-width: 75vw;
-  }
+  } 
 }
 
 @media screen and (600px <= width < 900px){
@@ -58,10 +61,23 @@ body {
   }
 }
 
-@media screen and (min-width: 600px){
+@media screen and (600px <= width){
   .layout{
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(29vh, auto);
+  }
+
+  .app-name {
+    padding-left: 2rem;
+    display: flex;
+  }
+
+  .counter, .timer {
+    padding-right: 2rem; 
+  }
+
+  .stats {
+    width: auto;
   }
 }
 
