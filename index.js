@@ -2,6 +2,9 @@ const characters = ['ace.jpg', 'chopper.jpeg', 'eustass.webp', 'kawamatsu.jpg', 
 const grid = document.getElementById('cards-grid')
 const restartGameTrigger = document.querySelector('.fancy-text')
 const counter = document.querySelector('.counter')
+const deviceDetails = navigator.userAgent
+const mobileDeviceRegex = /android|iphone|kindle|ipad/i
+const isMobileDevice = mobileDeviceRegex.test(deviceDetails)
 let flippedCards = []
 let matchedCouples = 0
 let seconds = 0
@@ -61,6 +64,7 @@ const main = () => {
   const cardsRendered = document.querySelectorAll('.card-parent')
 
   cardsRendered.forEach((c, index) => {
+    if(isMobileDevice) c.classList.add('not-before')
     c.addEventListener('click', () => {
       flipCard(c, index)
     })
@@ -103,6 +107,7 @@ const returnCardsToOriginalState = () => {
   flippedCards.forEach((f) => {
     f.card.classList.add('not-before')
     f.card.querySelector('.card').classList.remove('card-active')
+    if(!isMobileDevice)
     setTimeout(() => {
       f.card.classList.remove('not-before')
     }, 400)
