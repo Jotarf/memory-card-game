@@ -31,7 +31,7 @@ const resetValues = () => {
   flippedCards = []
   matchedCouples = 0
   timer.innerHTML = '0:00'
-  counter.innerHTML = '0/0 matches'
+  counter.innerHTML = '0/6 matches'
   timerInterval = setInterval(() => {
     if(seconds <= 60) seconds++
     else {
